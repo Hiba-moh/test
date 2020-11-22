@@ -7,11 +7,17 @@ const passport = require ('passport');
 const {urlencoded} = require ('express');
 require ('dotenv').config ();
 const app = express ();
+const path = require ('path');
 
 //passport; and passport-local; dependencies are to store logedin users session data into our browser cookie so they can use our app as authenticated user
 
 const initializePassport = require ('./passportConfig');
 const initialize = require ('./passportConfig');
+
+app.use (express.static ('./views'));
+if (process.env.NODE_END === 'production') {
+  app.use (express.static (path.join (__dirname, 'view')));
+}
 
 initializePassport (passport);
 
